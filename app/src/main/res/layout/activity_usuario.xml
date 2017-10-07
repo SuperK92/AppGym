@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context="com.example.kelly.appgym.UsuarioActivity">
+
+    <ImageView
+        android:id="@+id/imageUsuario"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/user_icon"/>
+
+    <TextView
+        android:id="@+id/textUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="33dp"
+        android:textSize="25dp"
+        android:textColor="@color/colorBlack"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageUsuario"
+        android:layout_toEndOf="@+id/imageUsuario"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp" />
+
+</RelativeLayout>
