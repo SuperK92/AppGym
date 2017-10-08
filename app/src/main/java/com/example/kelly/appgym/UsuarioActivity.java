@@ -13,10 +13,17 @@ public class UsuarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_usuario);
 
         Intent intent = this.getIntent();
-        String nombreUsuario = intent.getExtras().getString("usuario");
+
+        Usuario usuario = intent.getParcelableExtra("usuario");
 
 
         TextView nombrePerfil = (TextView) findViewById(R.id.textUsuario);
-        nombrePerfil.setText(nombreUsuario);
+        nombrePerfil.setText(usuario.getNombre());
+
+        TextView correoPerfil = (TextView) findViewById(R.id.textEmailUsuario);
+        correoPerfil.setText(usuario.getCorreo());
+
+        TextView sexoPerfil = (TextView) findViewById(R.id.textSexousuario);
+        sexoPerfil.setText(usuario.getSexo());
     }
 }

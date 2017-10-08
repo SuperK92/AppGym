@@ -21,8 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         contexto = this;
 
         Intent intent = this.getIntent();
-        final String nombrePasado = intent.getExtras().getString("nombre");
-        final String passPasado = intent.getExtras().getString("pass");
+        final Usuario usuario = intent.getParcelableExtra("usuario");
 
         final EditText nombreUser = (EditText) findViewById(R.id.editNombreLogin);
         final EditText passUser = (EditText) findViewById(R.id.editPasswordLogin);
@@ -38,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
                     nombreUser.requestFocus();
                     return;
                 }
-                else if(!TextUtils.equals(nombre, nombrePasado)) {
+                else if(!TextUtils.equals(nombre, usuario.getCorreo())) {
                     nombreUser.setError("Nombre de Usuario no existe");
                     nombreUser.requestFocus();
                     return;
@@ -51,14 +50,14 @@ public class LoginActivity extends AppCompatActivity {
                     passUser.requestFocus();
                     return;
                 }
-                else if (!TextUtils.equals(pass, passPasado)) {
+                else if (!TextUtils.equals(pass, usuario.getPass())) {
                     passUser.setError("Contraseña no es correcta");
                     passUser.requestFocus();
                     return;
                 }
 
                 Intent intent = new Intent(contexto, UsuarioActivity.class);
-                intent.putExtra("usuario", nombre);
+                intent.putExtra("usuario", usuario);
                 startActivity(intent);
             }
         });

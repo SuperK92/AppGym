@@ -26,6 +26,8 @@ public class RegistroActivity extends AppCompatActivity {
 
         contexto = this;
 
+        final EditText editEmail = (EditText) findViewById(R.id.editEmail);
+
         final EditText editNombre = (EditText) findViewById(R.id.editNombre);
 
         final EditText editPassword = (EditText) findViewById(R.id.editPassword);
@@ -54,6 +56,19 @@ public class RegistroActivity extends AppCompatActivity {
         buttonEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = editEmail.getText().toString();
+
+                if(TextUtils.isEmpty(email)) {
+                    editEmail.setError("Campo vacio");
+                    editEmail.requestFocus();
+                    return;
+                }
+                else if(!email.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+                    editEmail.setError("No es un email valido");
+                    editEmail.requestFocus();
+                    return;
+                }
+
                 String nombre = editNombre.getText().toString();
 
                 if(TextUtils.isEmpty(nombre)) {
@@ -86,9 +101,10 @@ public class RegistroActivity extends AppCompatActivity {
                     return;
                 }
 
+                Usuario usuario = new Usuario(email, nombre, pass, sexoSeleccionado);
                 Intent intent = new Intent(contexto, LoginActivity.class);
-                intent.putExtra("nombre", nombre);
-                intent.putExtra("pass", pass);
+                intent.putExtra("usuario", usuario);
+
                 startActivity(intent);
             }
         });

@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         buttonInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Usuario usuario = new Usuario("kelly@correo.com", "Kelly Suarez", "12345678", "Mujer");
                 Intent intent = new Intent(contexto, LoginActivity.class);
-                intent.putExtra("nombre", "Kelly");
-                intent.putExtra("pass", "12345678");
+                intent.putExtra("usuario", usuario);
                 startActivity(intent);
             }
         });

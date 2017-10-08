@@ -17,7 +17,7 @@
         android:id="@+id/textUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Nombre usuario"
         android:layout_marginTop="33dp"
         android:textSize="25dp"
         android:textColor="@color/colorBlack"
@@ -26,5 +26,31 @@
         android:layout_toEndOf="@+id/imageUsuario"
         android:layout_marginLeft="47dp"
         android:layout_marginStart="47dp" />
+
+    <TextView
+        android:id="@+id/textEmailUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageUsuario"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="55dp"
+        android:text="Correo Usuario"
+        android:textSize="20dp"
+        android:textColor="@color/colorBlack"/>
+
+    <TextView
+        android:id="@+id/textSexousuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textEmailUsuario"
+        android:layout_alignStart="@+id/textEmailUsuario"
+        android:layout_below="@+id/textEmailUsuario"
+        android:layout_marginTop="32dp"
+        android:text="Sexo Usuario"
+        android:textSize="20dp"
+        android:textColor="@color/colorBlack"/>
 
 </RelativeLayout>
