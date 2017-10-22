@@ -41,7 +41,7 @@
             android:name=".PrincipalActivity"
             android:label="Principal"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UsuarioActivity"
             android:label="Perfil de Usuario"
@@ -58,6 +58,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kelly.appgym.PrincipalActivity" />
+        </activity>
+        <activity
+            android:name=".AyudaActivity"
+            android:label="Ayuda"
+            android:parentActivityName=".PrincipalActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kelly.appgym.PrincipalActivity" />
+
         </activity>
     </application>
 

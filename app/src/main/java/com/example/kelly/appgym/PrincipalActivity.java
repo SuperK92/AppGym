@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,9 +25,6 @@ public class PrincipalActivity extends AppCompatActivity
     Activity contexto;
 
     Usuario usuario;
-
-//    Usuario usuario = new Usuario("kelly@correo.com", "Kelly Suarez", "12345678", "Mujer");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +90,14 @@ public class PrincipalActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_ayuda:
+                Intent intent = new Intent(contexto, AyudaActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                Toast.makeText(this, "No está implementado", Toast.LENGTH_LONG).show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
