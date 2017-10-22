@@ -3,9 +3,13 @@ package com.example.kelly.appgym;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class UsuarioActivity extends AppCompatActivity {
+
+
+    Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,8 +18,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
 
-        Usuario usuario = intent.getParcelableExtra("usuario");
-
+        usuario = intent.getParcelableExtra("usuario");
 
         TextView nombrePerfil = (TextView) findViewById(R.id.textUsuario);
         nombrePerfil.setText(usuario.getNombre());
@@ -26,4 +29,5 @@ public class UsuarioActivity extends AppCompatActivity {
         TextView sexoPerfil = (TextView) findViewById(R.id.textSexousuario);
         sexoPerfil.setText(usuario.getSexo());
     }
+
 }

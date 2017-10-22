@@ -1,0 +1,64 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kelly.appgym.RutinaPechoFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/imagePiernasPrensa"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@drawable/piernas_prensa" />
+
+        <TextView
+            android:id="@+id/textPiernasPrensa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="43dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="51dp"
+            android:layout_toEndOf="@+id/imagePiernasPrensa"
+            android:layout_toRightOf="@+id/imagePiernasPrensa"
+            android:text="Prensa 45º"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/imagePiernasSentadillas"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imagePiernasPrensa"
+            android:layout_marginTop="86dp"
+            app:srcCompat="@drawable/piernas_sentadillas" />
+
+        <TextView
+            android:id="@+id/textPiernasSentadillas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="37dp"
+            android:text="Sentadillas con barra"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp"
+            android:layout_alignBottom="@+id/imagePiernasSentadillas"
+            android:layout_alignLeft="@+id/textPiernasPrensa"
+            android:layout_alignStart="@+id/textPiernasPrensa" />
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>

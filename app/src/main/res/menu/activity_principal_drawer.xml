@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_verPerfil"
+            android:icon="@drawable/ic_ver_perfil"
+            android:title="Ver Perfil" />
+        <item
+            android:id="@+id/nav_VerRutinas"
+            android:icon="@drawable/ic_rutinas"
+            android:title="Ver Rutinas" />
+        <item
+            android:id="@+id/nav_cerrarSesion"
+            android:icon="@drawable/ic_cerrar_sesion"
+            android:title="Cerrar Sesión" />
+    </group>
+
+</menu>
