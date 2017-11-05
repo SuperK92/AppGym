@@ -16,8 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.kelly.appgym.ejercicio.CicloActivity;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +40,14 @@ public class PrincipalActivity extends AppCompatActivity
 
         usuario = intent.getParcelableExtra("usuario");
 
+        Button buttonIrAEjercicios = (Button) findViewById(R.id.buttonIrAEjercicios);
+        buttonIrAEjercicios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(contexto, CicloActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,6 +75,9 @@ public class PrincipalActivity extends AppCompatActivity
         TextView textCorreoUsuarioNav = (TextView) headerView.findViewById(R.id.textCorreoUsuarioNav);
         textNombreUsuarioNav.setText(usuario.getNombre());
         textCorreoUsuarioNav.setText(usuario.getCorreo());
+
+
+
     }
 
     @Override

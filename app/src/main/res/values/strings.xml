@@ -31,4 +31,14 @@
     <string name="texto_pagina_principal_cuerpo">Descubre todas las ventajas de ser socio de AppGym</string>
 
     <string name="texto_ayuda">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</string>
+
+
+    <string name="sin_datos">Sin datos.</string>
+
+    <string name="progress_cargando_datos">Cargando datos&#8230;</string>
+
+    <string name="campo_requerido">Campo Requerido</string>
+
+    <string name="ciclo_nombre">Nombre</string>
+    <string name="ciclo_abreviatura">Repeticiones</string>
 </resources>
