@@ -37,5 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Crear Ejercicios"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorWhite"
+        android:textColor="@color/colorBlack"
+        android:textAlignment="center"/>
 </LinearLayout>
