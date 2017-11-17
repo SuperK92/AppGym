@@ -1,5 +1,7 @@
 package com.example.kelly.appgym.pojos;
 
+import android.graphics.Bitmap;
+
 import com.example.kelly.appgym.constantes.G;
 
 /**
@@ -10,17 +12,20 @@ public class Ejercicio {
     private int ID;
     private String nombre;
     private int repeticiones;
+    private Bitmap imagen;
 
     public Ejercicio(){
         this.ID = G.SIN_VALOR_INT;
         this.nombre = G.SIN_VALOR_STRING;
         this.repeticiones = G.SIN_VALOR_INT;
+        this.setImagen(null);
     };
 
-    public Ejercicio(int ID, String nombre, int repeticiones) {
+    public Ejercicio(int ID, String nombre, int repeticiones, Bitmap imagen) {
         this.ID = ID;
         this.nombre = nombre;
         this.repeticiones = repeticiones;
+        this.imagen = imagen;
     }
 
     public int getID() {
@@ -45,5 +50,13 @@ public class Ejercicio {
 
     public void setRepeticiones(int repeticiones) {
         this.repeticiones = repeticiones;
+    }
+
+    public Bitmap getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Bitmap imagen) {
+        this.imagen = imagen;
     }
 }

@@ -7,32 +7,48 @@
     android:orientation="vertical"
 	android:padding="16dp">
 
-	<RelativeLayout
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/textview_ciclo_list_item_nombre"
-			android:layout_marginBottom="@dimen/appbar_padding_top"
-			android:textColor="@color/colorBlack"
-			android:textSize="20dp"
-			android:text="hola"/>
+		<ImageView android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:layout_gravity="center_vertical"
+			android:layout_marginLeft="@dimen/appbar_padding_top"
+			android:id="@+id/image_ciclo_list_item_foto"/>
 
-		<TextView
-			android:id="@+id/textview_ciclo_list_item_abreviatura"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentEnd="true"
-			android:layout_alignParentRight="true"
-			android:layout_alignParentTop="true"
-			android:layout_marginEnd="70dp"
-			android:layout_marginRight="70dp"
-			android:text="bye"
-			android:textColor="@color/colorBlack"
-			android:textSize="20dp" />
 
-	</RelativeLayout>
+		<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="15dp"
+		android:layout_marginLeft="15dp">
+
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/textview_ciclo_list_item_nombre"
+				android:layout_marginBottom="@dimen/appbar_padding_top"
+				android:textColor="@color/colorBlack"
+				android:textSize="20dp"
+				android:text="hola"/>
+
+			<TextView
+				android:id="@+id/textview_ciclo_list_item_abreviatura"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentEnd="true"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"
+				android:layout_marginEnd="70dp"
+				android:layout_marginRight="70dp"
+				android:text="bye"
+				android:textColor="@color/colorBlack"
+				android:textSize="20dp" />
+
+		</RelativeLayout>
+	</LinearLayout>
 
 </LinearLayout>

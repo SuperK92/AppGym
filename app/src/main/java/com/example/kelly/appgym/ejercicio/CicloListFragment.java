@@ -3,6 +3,7 @@ package com.example.kelly.appgym.ejercicio;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,7 +11,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,9 +25,12 @@ import android.widget.TextView;
 
 import com.example.kelly.appgym.R;
 import com.example.kelly.appgym.constantes.G;
+import com.example.kelly.appgym.constantes.Utilidades;
 import com.example.kelly.appgym.pojos.Ejercicio;
 import com.example.kelly.appgym.proveedor.EjercicioProveedor;
 import com.example.kelly.appgym.proveedor.Contrato;
+
+import java.io.FileNotFoundException;
 
 
 public class CicloListFragment extends ListFragment
@@ -217,17 +220,18 @@ public class CicloListFragment extends ListFragment
 			TextView textviewAbreviatura = (TextView) view.findViewById(R.id.textview_ciclo_list_item_abreviatura);
 			textviewAbreviatura.setText(String.valueOf(abreviatura));
 
-//			ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
-//			int color = generator.getColor(abreviatura); //Genera un color según el nombre
-//			TextDrawable drawable = TextDrawable.builder()
-//					.buildRound(abreviatura.substring(0,1), color);
-//
-//			ImageView image = (ImageView) view.findViewById(R.id.image_view);
-//			image.setImageDrawable(drawable);
+			ImageView image = (ImageView) view.findViewById(R.id.image_ciclo_list_item_foto);
+
+			try {
+				Utilidades.loadImageFromStorage(getActivity(), "img_" + ID + ".jpg", image);
+			} catch (FileNotFoundException e) {
+				image.setBackgroundResource(R.drawable.fondo);
+			}
 
 			view.setTag(ID);
 
 		}
+
 
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
