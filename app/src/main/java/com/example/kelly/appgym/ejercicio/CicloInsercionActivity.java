@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import com.example.kelly.appgym.R;
 import com.example.kelly.appgym.constantes.G;
 import com.example.kelly.appgym.pojos.Ejercicio;
+import com.example.kelly.appgym.pojos.Musculo;
 import com.example.kelly.appgym.proveedor.EjercicioProveedor;
+import com.example.kelly.appgym.proveedor.MusculoProveedor;
 
 public class CicloInsercionActivity extends AppCompatActivity {
     EditText editTextCicloNombre;
@@ -138,8 +140,8 @@ public class CicloInsercionActivity extends AppCompatActivity {
         }
 
         Integer nRep = Integer.parseInt(editTextCicloAbreviatura.getText().toString());
-
-        Ejercicio ejercicio = new Ejercicio(G.SIN_VALOR_INT, nombre, nRep, foto);
+      Musculo musculo = MusculoProveedor.read(getContentResolver(), nRep);
+        Ejercicio ejercicio = new Ejercicio(G.SIN_VALOR_INT, nombre, musculo, foto);
         EjercicioProveedor.insert(getContentResolver(), ejercicio, this);
         finish();
     }

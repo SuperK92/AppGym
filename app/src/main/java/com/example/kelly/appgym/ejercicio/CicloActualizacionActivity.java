@@ -20,7 +20,9 @@ import com.example.kelly.appgym.R;
 import com.example.kelly.appgym.constantes.G;
 import com.example.kelly.appgym.constantes.Utilidades;
 import com.example.kelly.appgym.pojos.Ejercicio;
+import com.example.kelly.appgym.pojos.Musculo;
 import com.example.kelly.appgym.proveedor.EjercicioProveedor;
+import com.example.kelly.appgym.proveedor.MusculoProveedor;
 
 import java.io.FileNotFoundException;
 
@@ -161,7 +163,8 @@ public class CicloActualizacionActivity extends AppCompatActivity {
 //            return;
 //        }
         Integer nRep = Integer.parseInt(editTextCicloAbreviatura.getText().toString());
-        Ejercicio ejercicio = new Ejercicio(ejercicioId, nombre, nRep, foto);
+        Musculo musculo = MusculoProveedor.read(getContentResolver(), nRep);
+        Ejercicio ejercicio = new Ejercicio(ejercicioId, nombre, musculo, foto);
         EjercicioProveedor.update(getContentResolver(), ejercicio, this);
         finish();
     }

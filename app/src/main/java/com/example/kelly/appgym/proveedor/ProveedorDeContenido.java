@@ -30,7 +30,7 @@ public class ProveedorDeContenido extends ContentProvider {
     private SQLiteDatabase sqlDB;
     public DatabaseHelper dbHelper;
     private static final String DATABASE_NAME = "Gym.db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     private static final String MUSCULO_TABLE_NAME = "Musculo";
     private static final String EJERCICIO_TABLE_NAME = "Ejercicio";
@@ -72,6 +72,7 @@ public class ProveedorDeContenido extends ContentProvider {
                 Contrato.AUTHORITY,
                 EJERCICIO_TABLE_NAME + "/#",
                 EJERCICIO_ONE_REG);
+
         sUriMatcher.addURI(
                 Contrato.AUTHORITY,
                 EJERCICIO_TABLE_NAME + "/MUSCULO",
@@ -105,6 +106,10 @@ public class ProveedorDeContenido extends ContentProvider {
                 EJERCICIO_ONE_REG,
                 "vnd.android.cursor.item/vnd."+
                         Contrato.AUTHORITY + "." + EJERCICIO_TABLE_NAME);
+        sMimeTypes.put(
+                EJERCICIO_MUSCULO_REG,
+                "vnd.android.cursor.dir/vnd."+
+                  Contrato.AUTHORITY + "." + EJERCICIO_TABLE_NAME + "." + MUSCULO_TABLE_NAME );
 
         sMimeTypes.put(
                 MUSCULO_ALL_REGS,
@@ -333,10 +338,16 @@ public class ProveedorDeContenido extends ContentProvider {
                 qb.setTables(EJERCICIO_TABLE_NAME);
                 break;
             case EJERCICIO_MUSCULO_REG:
-
-                projection = proyEjercicioMusculo;
-                qb.setTables(EJERCICIO_JOIN_MUSCULO);
-                break;
+                String sql = "SELECT " +
+                  Contrato.Ejercicio._ID + "," +
+                  Contrato.Ejercicio.NOMBRE + "," +
+                  Contrato.Musculo.NOMBRE + " AS NOMBRE_MUSCULO" + " FROM " +
+                  EJERCICIO_TABLE_NAME +
+                  " INNER JOIN " + MUSCULO_TABLE_NAME +
+                  " ON " + Contrato.Ejercicio.ID_MUSCULO + " = " + Contrato.Musculo._ID;
+                Cursor c;
+                c = db.rawQuery(sql, null);
+                return c;
             case MUSCULO_ONE_REG:
                 if (null == selection) selection = "";
                 selection += Contrato.Musculo._ID + " = "

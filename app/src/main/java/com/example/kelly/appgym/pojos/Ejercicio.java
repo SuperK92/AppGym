@@ -12,20 +12,20 @@ public class Ejercicio {
     private int ID;
     private String nombre;
     //private int repeticiones;
-    private int id_musculo;
+    private Musculo musculo;
     private Bitmap imagen;
 
     public Ejercicio(){
         this.ID = G.SIN_VALOR_INT;
         this.nombre = G.SIN_VALOR_STRING;
-        this.id_musculo = G.SIN_VALOR_INT;
+        this.musculo = null;
         this.setImagen(null);
     };
 
-    public Ejercicio(int ID, String nombre, int musculo, Bitmap imagen) {
+    public Ejercicio(int ID, String nombre, Musculo musculo, Bitmap imagen) {
         this.ID = ID;
         this.nombre = nombre;
-        this.id_musculo = musculo;
+        this.musculo = musculo;
         this.imagen = imagen;
     }
 
@@ -53,11 +53,11 @@ public class Ejercicio {
         this.imagen = imagen;
     }
 
-    public int getId_musculo() {
-        return id_musculo;
+    public Musculo getMusculo() {
+        return musculo;
     }
 
-    public void setId_musculo(int id_musculo) {
-        this.id_musculo = id_musculo;
+    public void setMusculo(Musculo musculo) {
+        this.musculo = musculo;
     }
 }

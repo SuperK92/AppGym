@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.example.kelly.appgym.constantes.Utilidades;
+import com.example.kelly.appgym.pojos.Musculo;
 
 import java.io.IOException;
 
@@ -39,7 +40,7 @@ public class MusculoProveedor {
 
     }
 
-    static public com.example.kelly.appgym.pojos.Musculo read(ContentResolver resolver, int musculoId) {
+    static public Musculo read(ContentResolver resolver, int musculoId) {
         Uri uri = Uri.parse(Contrato.Musculo.CONTENT_URI + "/" + musculoId);
 
         String[] projection = {Contrato.Musculo._ID,
@@ -48,7 +49,7 @@ public class MusculoProveedor {
         Cursor cursor = resolver.query(uri, projection, null, null, null);
 
         if (cursor.moveToFirst()){
-            com.example.kelly.appgym.pojos.Musculo musculo = new com.example.kelly.appgym.pojos.Musculo();
+            Musculo musculo = new com.example.kelly.appgym.pojos.Musculo();
             musculo.setID(cursor.getInt(cursor.getColumnIndex(Contrato.Musculo._ID)));
             musculo.setNombre(cursor.getString(cursor.getColumnIndex(Contrato.Musculo.NOMBRE)));
 

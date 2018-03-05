@@ -27,8 +27,10 @@ import com.example.kelly.appgym.R;
 import com.example.kelly.appgym.constantes.G;
 import com.example.kelly.appgym.constantes.Utilidades;
 import com.example.kelly.appgym.pojos.Ejercicio;
+import com.example.kelly.appgym.pojos.Musculo;
 import com.example.kelly.appgym.proveedor.EjercicioProveedor;
 import com.example.kelly.appgym.proveedor.Contrato;
+import com.example.kelly.appgym.proveedor.MusculoProveedor;
 
 import java.io.FileNotFoundException;
 
@@ -52,7 +54,7 @@ public class CicloListFragment extends ListFragment
 	/**
 	 * When creating, retrieve this instance's number from its arguments.
 	 */
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -148,7 +150,7 @@ public class CicloListFragment extends ListFragment
 //					Log.i("El identificador", ciclo.getNombre());
 					intent.putExtra("ID", ciclo.getID());
 					intent.putExtra("Nombre", ciclo.getNombre());
-					intent.putExtra("Id_Musculo", ciclo.getId_musculo());
+					intent.putExtra("Id_Musculo", ciclo.getMusculo().getID());
 					startActivity(intent);
 					break;
 				default:
@@ -191,7 +193,7 @@ public class CicloListFragment extends ListFragment
 
 		Uri laUriBase = Uri.parse("content://"+Contrato.AUTHORITY+"/Ejercicio");
 		data.setNotificationUri(getActivity().getContentResolver(), laUriBase);
-		
+
 		mAdapter.swapCursor(data);
 	}
 
@@ -212,14 +214,16 @@ public class CicloListFragment extends ListFragment
 		public void bindView(View view, Context context, Cursor cursor) {
 			int ID = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio._ID));
 			String nombre = cursor.getString(cursor.getColumnIndex(Contrato.Ejercicio.NOMBRE));
-			int abreviatura = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.ID_MUSCULO));
+			int idMusculo = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.ID_MUSCULO));
 			//String abreviatura = cursor.getString(cursor.getColumnIndex(Contrato.Musculo.NOMBRE));
+
+      Musculo musculo = MusculoProveedor.read(getContext().getContentResolver(), idMusculo);
 
 			TextView textviewNombre = (TextView) view.findViewById(R.id.textview_ciclo_list_item_nombre);
 			textviewNombre.setText(nombre);
 
 			TextView textviewAbreviatura = (TextView) view.findViewById(R.id.textview_ciclo_list_item_abreviatura);
-			textviewAbreviatura.setText(String.valueOf(abreviatura));
+			textviewAbreviatura.setText(musculo.getNombre());
 			//textviewAbreviatura.setText(abreviatura);
 
 			ImageView image = (ImageView) view.findViewById(R.id.image_ciclo_list_item_foto);
