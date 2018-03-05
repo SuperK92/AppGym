@@ -148,7 +148,7 @@ public class CicloListFragment extends ListFragment
 //					Log.i("El identificador", ciclo.getNombre());
 					intent.putExtra("ID", ciclo.getID());
 					intent.putExtra("Nombre", ciclo.getNombre());
-					intent.putExtra("Repeticiones", ciclo.getRepeticiones());
+					intent.putExtra("Id_Musculo", ciclo.getId_musculo());
 					startActivity(intent);
 					break;
 				default:
@@ -171,7 +171,7 @@ public class CicloListFragment extends ListFragment
 		// currently filtering.
 		String columns[] = new String[] { Contrato.Ejercicio._ID,
 										  Contrato.Ejercicio.NOMBRE,
-				                          Contrato.Ejercicio.REPETICIONES
+				                          Contrato.Ejercicio.ID_MUSCULO
 										};
 
 		Uri baseUri = Contrato.Ejercicio.CONTENT_URI;
@@ -212,13 +212,15 @@ public class CicloListFragment extends ListFragment
 		public void bindView(View view, Context context, Cursor cursor) {
 			int ID = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio._ID));
 			String nombre = cursor.getString(cursor.getColumnIndex(Contrato.Ejercicio.NOMBRE));
-			int abreviatura = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.REPETICIONES));
-	
+			int abreviatura = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.ID_MUSCULO));
+			//String abreviatura = cursor.getString(cursor.getColumnIndex(Contrato.Musculo.NOMBRE));
+
 			TextView textviewNombre = (TextView) view.findViewById(R.id.textview_ciclo_list_item_nombre);
 			textviewNombre.setText(nombre);
 
 			TextView textviewAbreviatura = (TextView) view.findViewById(R.id.textview_ciclo_list_item_abreviatura);
 			textviewAbreviatura.setText(String.valueOf(abreviatura));
+			//textviewAbreviatura.setText(abreviatura);
 
 			ImageView image = (ImageView) view.findViewById(R.id.image_ciclo_list_item_foto);
 

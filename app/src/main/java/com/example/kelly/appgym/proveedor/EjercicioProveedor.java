@@ -18,7 +18,8 @@ public class EjercicioProveedor {
 
         ContentValues values = new ContentValues();
         values.put(Contrato.Ejercicio.NOMBRE, ejercicio.getNombre());
-        values.put(Contrato.Ejercicio.REPETICIONES, ejercicio.getRepeticiones());
+        //values.put(Contrato.Ejercicio.REPETICIONES, ejercicio.getRepeticiones());
+        values.put(Contrato.Ejercicio.ID_MUSCULO, ejercicio.getId_musculo());
 
 //        resolvedor.insert(uri, values);
         Uri returnUri = resolvedor.insert(uri, values);
@@ -42,7 +43,7 @@ public class EjercicioProveedor {
 
         ContentValues values = new ContentValues();
         values.put(Contrato.Ejercicio.NOMBRE, ejercicio.getNombre());
-        values.put(Contrato.Ejercicio.REPETICIONES, ejercicio.getRepeticiones());
+        values.put(Contrato.Ejercicio.ID_MUSCULO, ejercicio.getId_musculo());
 
         resolver.update(uri, values, null, null);
 
@@ -60,7 +61,7 @@ public class EjercicioProveedor {
 
         String[] projection = {Contrato.Ejercicio._ID,
                 Contrato.Ejercicio.NOMBRE,
-                Contrato.Ejercicio.REPETICIONES};
+                Contrato.Ejercicio.ID_MUSCULO};
 
         Cursor cursor = resolver.query(uri, projection, null, null, null);
 
@@ -68,7 +69,28 @@ public class EjercicioProveedor {
             com.example.kelly.appgym.pojos.Ejercicio ejercicio = new com.example.kelly.appgym.pojos.Ejercicio();
             ejercicio.setID(cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio._ID)));
             ejercicio.setNombre(cursor.getString(cursor.getColumnIndex(Contrato.Ejercicio.NOMBRE)));
-            ejercicio.setRepeticiones(cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.REPETICIONES)));
+            ejercicio.setId_musculo(cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.ID_MUSCULO)));
+            return ejercicio;
+        }
+
+        return null;
+
+    }
+
+    static public com.example.kelly.appgym.pojos.Ejercicio motrar_musculo(ContentResolver resolver, int ejercicioId) {
+        Uri uri = Uri.parse(Contrato.Ejercicio.CONTENT_URI + "/MUSCULO");
+
+        String[] projection = {Contrato.Ejercicio._ID,
+                Contrato.Ejercicio.NOMBRE,
+                Contrato.Musculo.NOMBRE};
+
+        Cursor cursor = resolver.query(uri, projection, null, null, null);
+
+        if (cursor.moveToFirst()){
+            com.example.kelly.appgym.pojos.Ejercicio ejercicio = new com.example.kelly.appgym.pojos.Ejercicio();
+            ejercicio.setID(cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio._ID)));
+            ejercicio.setNombre(cursor.getString(cursor.getColumnIndex(Contrato.Ejercicio.NOMBRE)));
+            ejercicio.setId_musculo(cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.ID_MUSCULO)));
             return ejercicio;
         }
 

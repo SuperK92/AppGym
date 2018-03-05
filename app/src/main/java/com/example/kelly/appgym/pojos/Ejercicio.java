@@ -11,20 +11,21 @@ import com.example.kelly.appgym.constantes.G;
 public class Ejercicio {
     private int ID;
     private String nombre;
-    private int repeticiones;
+    //private int repeticiones;
+    private int id_musculo;
     private Bitmap imagen;
 
     public Ejercicio(){
         this.ID = G.SIN_VALOR_INT;
         this.nombre = G.SIN_VALOR_STRING;
-        this.repeticiones = G.SIN_VALOR_INT;
+        this.id_musculo = G.SIN_VALOR_INT;
         this.setImagen(null);
     };
 
-    public Ejercicio(int ID, String nombre, int repeticiones, Bitmap imagen) {
+    public Ejercicio(int ID, String nombre, int musculo, Bitmap imagen) {
         this.ID = ID;
         this.nombre = nombre;
-        this.repeticiones = repeticiones;
+        this.id_musculo = musculo;
         this.imagen = imagen;
     }
 
@@ -36,10 +37,6 @@ public class Ejercicio {
         return nombre;
     }
 
-    public int getRepeticiones() {
-        return repeticiones;
-    }
-
     public void setID(int ID) {
         this.ID = ID;
     }
@@ -48,15 +45,19 @@ public class Ejercicio {
         this.nombre = nombre;
     }
 
-    public void setRepeticiones(int repeticiones) {
-        this.repeticiones = repeticiones;
-    }
-
     public Bitmap getImagen() {
         return imagen;
     }
 
     public void setImagen(Bitmap imagen) {
         this.imagen = imagen;
+    }
+
+    public int getId_musculo() {
+        return id_musculo;
+    }
+
+    public void setId_musculo(int id_musculo) {
+        this.id_musculo = id_musculo;
     }
 }

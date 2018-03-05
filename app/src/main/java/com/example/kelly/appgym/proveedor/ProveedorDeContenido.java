@@ -19,13 +19,22 @@ public class ProveedorDeContenido extends ContentProvider {
 
     private static final int EJERCICIO_ONE_REG = 1;
     private static final int EJERCICIO_ALL_REGS = 2;
+    private static final int EJERCICIO_MUSCULO_REG = 3;
+
+    private static final int MUSCULO_ONE_REG = 10;
+    private static final int MUSCULO_ALL_REGS = 20;
+
+    private static final int ACTIVIDAD_ONE_REG = 100;
+    private static final int ACTIVIDAD_ALL_REGS = 200;
 
     private SQLiteDatabase sqlDB;
     public DatabaseHelper dbHelper;
     private static final String DATABASE_NAME = "Gym.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 9;
 
+    private static final String MUSCULO_TABLE_NAME = "Musculo";
     private static final String EJERCICIO_TABLE_NAME = "Ejercicio";
+    private static final String ACTIVIDAD_TABLE_NAME = "Actividad";
 
     // Indicates an invalid content URI
     public static final int INVALID_URI = -1;
@@ -63,6 +72,28 @@ public class ProveedorDeContenido extends ContentProvider {
                 Contrato.AUTHORITY,
                 EJERCICIO_TABLE_NAME + "/#",
                 EJERCICIO_ONE_REG);
+        sUriMatcher.addURI(
+                Contrato.AUTHORITY,
+                EJERCICIO_TABLE_NAME + "/MUSCULO",
+                EJERCICIO_MUSCULO_REG);
+
+        sUriMatcher.addURI(
+                Contrato.AUTHORITY,
+                MUSCULO_TABLE_NAME,
+                MUSCULO_ALL_REGS);
+        sUriMatcher.addURI(
+                Contrato.AUTHORITY,
+                MUSCULO_TABLE_NAME + "/#",
+                MUSCULO_ONE_REG);
+
+        sUriMatcher.addURI(
+                Contrato.AUTHORITY,
+                ACTIVIDAD_TABLE_NAME,
+                ACTIVIDAD_ALL_REGS);
+        sUriMatcher.addURI(
+                Contrato.AUTHORITY,
+                ACTIVIDAD_TABLE_NAME + "/#",
+                ACTIVIDAD_ONE_REG);
 
         // Specifies a custom MIME type for the picture URL table
 
@@ -74,6 +105,24 @@ public class ProveedorDeContenido extends ContentProvider {
                 EJERCICIO_ONE_REG,
                 "vnd.android.cursor.item/vnd."+
                         Contrato.AUTHORITY + "." + EJERCICIO_TABLE_NAME);
+
+        sMimeTypes.put(
+                MUSCULO_ALL_REGS,
+                "vnd.android.cursor.dir/vnd." +
+                        Contrato.AUTHORITY + "." + MUSCULO_TABLE_NAME);
+        sMimeTypes.put(
+                MUSCULO_ONE_REG,
+                "vnd.android.cursor.item/vnd."+
+                        Contrato.AUTHORITY + "." + MUSCULO_TABLE_NAME);
+
+        sMimeTypes.put(
+                ACTIVIDAD_ALL_REGS,
+                "vnd.android.cursor.dir/vnd." +
+                        Contrato.AUTHORITY + "." + ACTIVIDAD_TABLE_NAME);
+        sMimeTypes.put(
+                ACTIVIDAD_ONE_REG,
+                "vnd.android.cursor.item/vnd."+
+                        Contrato.AUTHORITY + "." + ACTIVIDAD_TABLE_NAME);
     }
 
     public static class DatabaseHelper extends SQLiteOpenHelper {
@@ -86,10 +135,10 @@ public class ProveedorDeContenido extends ContentProvider {
         public void onOpen(SQLiteDatabase db) {
             super.onOpen(db);
 
-            //if (!db.isReadOnly()){
+            if (!db.isReadOnly()){
             //Habilitamos la integridad referencial
             db.execSQL("PRAGMA foreign_keys=ON;");
-            //}
+            }
         }
 
         @Override
@@ -97,10 +146,26 @@ public class ProveedorDeContenido extends ContentProvider {
             // create table to store
 
             db.execSQL("Create table "
+                    + MUSCULO_TABLE_NAME
+                    + "( _id INTEGER PRIMARY KEY ON CONFLICT ROLLBACK AUTOINCREMENT, "
+                    + Contrato.Musculo.NOMBRE + " TEXT ); "
+            );
+
+            db.execSQL("Create table "
                             + EJERCICIO_TABLE_NAME
                             + "( _id INTEGER PRIMARY KEY ON CONFLICT ROLLBACK AUTOINCREMENT, "
                             + Contrato.Ejercicio.NOMBRE + " TEXT , "
-                            + Contrato.Ejercicio.REPETICIONES + " INTEGER ); "
+                            + Contrato.Ejercicio.ID_MUSCULO + " INTEGER , "
+                            + "FOREIGN KEY (" + Contrato.Ejercicio.ID_MUSCULO + ") "
+                            + "REFERENCES " + MUSCULO_TABLE_NAME + " (" + Contrato.Musculo._ID + "));"
+            );
+
+            db.execSQL("Create table "
+                    + ACTIVIDAD_TABLE_NAME
+                    + "( _id INTEGER PRIMARY KEY ON CONFLICT ROLLBACK AUTOINCREMENT, "
+                    + Contrato.Actividad.ID_EJERCICIO + " INTEGER , "
+                    + Contrato.Actividad.SERIES + " INTEGER , "
+                    + Contrato.Actividad.REPETICIONES + " INTEGER ); "
             );
 
             inicializarDatos(db);
@@ -109,17 +174,33 @@ public class ProveedorDeContenido extends ContentProvider {
 
         void inicializarDatos(SQLiteDatabase db){
 
-            db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.REPETICIONES + ") " +
+            db.execSQL("INSERT INTO " + MUSCULO_TABLE_NAME + " (" +  Contrato.Musculo._ID + "," + Contrato.Musculo.NOMBRE + ") " +
+                    "VALUES (1,'Pecho')");
+
+            db.execSQL("INSERT INTO " + MUSCULO_TABLE_NAME + " (" +  Contrato.Musculo._ID + "," + Contrato.Musculo.NOMBRE + ") " +
+                    "VALUES (2,'Espalda')");
+
+            db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.ID_MUSCULO + ") " +
+                    "VALUES (1,'Press de banca',1)");
+            db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.ID_MUSCULO + ") " +
+                    "VALUES (2,'Dominada',2)");
+
+            db.execSQL("INSERT INTO " + ACTIVIDAD_TABLE_NAME + " (" +  Contrato.Actividad._ID + "," + Contrato.Actividad.ID_EJERCICIO + "," + Contrato.Actividad.SERIES + ","
+                    + Contrato.Actividad.REPETICIONES + ") " + "VALUES (1,1,3,15)");
+
+            /*db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.REPETICIONES + ") " +
                     "VALUES (1,'Sentadillas', 15)");
             db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.REPETICIONES + ") " +
                     "VALUES (2,'Aperturas de Pecho', 12)");
             db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.REPETICIONES + ") " +
-                    "VALUES (3,'Dominada',10)");
+                    "VALUES (3,'Dominada',10)");*/
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			db.execSQL("DROP TABLE IF EXISTS " + MUSCULO_TABLE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS " + EJERCICIO_TABLE_NAME);
+			db.execSQL("DROP TABLE IF EXISTS " + ACTIVIDAD_TABLE_NAME);
 
             onCreate(db);
         }
@@ -155,6 +236,13 @@ public class ProveedorDeContenido extends ContentProvider {
             case EJERCICIO_ALL_REGS:
                 table = EJERCICIO_TABLE_NAME;
                 break;
+            case MUSCULO_ALL_REGS:
+                table = MUSCULO_TABLE_NAME;
+                break;
+            case ACTIVIDAD_ALL_REGS:
+                table = ACTIVIDAD_TABLE_NAME;
+                break;
+
         }
 
         long rowId = sqlDB.insert(table, "", values);
@@ -185,6 +273,25 @@ public class ProveedorDeContenido extends ContentProvider {
             case EJERCICIO_ALL_REGS:
                 table = EJERCICIO_TABLE_NAME;
                 break;
+            case MUSCULO_ONE_REG:
+                if (null == selection) selection = "";
+                selection += Contrato.Musculo._ID + " = "
+                        + uri.getLastPathSegment();
+                table = MUSCULO_TABLE_NAME;
+                break;
+            case MUSCULO_ALL_REGS:
+                table = MUSCULO_TABLE_NAME;
+                break;
+            case ACTIVIDAD_ONE_REG:
+                if (null == selection) selection = "";
+                selection += Contrato.Actividad._ID + " = "
+                        + uri.getLastPathSegment();
+                table = ACTIVIDAD_TABLE_NAME;
+                break;
+            case ACTIVIDAD_ALL_REGS:
+                table = ACTIVIDAD_TABLE_NAME;
+                break;
+
         }
         int rows = sqlDB.delete(table, selection, selectionArgs);
         if (rows > 0) {
@@ -193,6 +300,17 @@ public class ProveedorDeContenido extends ContentProvider {
         }
         throw new SQLException("Failed to delete row into " + uri);
     }
+
+
+    private static final String EJERCICIO_JOIN_MUSCULO = EJERCICIO_TABLE_NAME +
+            " INNER JOIN " + MUSCULO_TABLE_NAME +
+            " ON " + Contrato.Ejercicio.ID_MUSCULO + " = " + Contrato.Musculo._ID;
+
+    private final String[] proyEjercicioMusculo = new String[]{
+            Contrato.Ejercicio._ID,
+            Contrato.Ejercicio.NOMBRE,
+            Contrato.Musculo.NOMBRE + " AS NOMBRE_MUSCULO"
+            };
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
@@ -213,6 +331,33 @@ public class ProveedorDeContenido extends ContentProvider {
                 if (TextUtils.isEmpty(sortOrder)) sortOrder =
                         Contrato.Ejercicio._ID + " ASC";
                 qb.setTables(EJERCICIO_TABLE_NAME);
+                break;
+            case EJERCICIO_MUSCULO_REG:
+
+                projection = proyEjercicioMusculo;
+                qb.setTables(EJERCICIO_JOIN_MUSCULO);
+                break;
+            case MUSCULO_ONE_REG:
+                if (null == selection) selection = "";
+                selection += Contrato.Musculo._ID + " = "
+                        + uri.getLastPathSegment();
+                qb.setTables(MUSCULO_TABLE_NAME);
+                break;
+            case MUSCULO_ALL_REGS:
+                if (TextUtils.isEmpty(sortOrder)) sortOrder =
+                        Contrato.Musculo._ID + " ASC";
+                qb.setTables(MUSCULO_TABLE_NAME);
+                break;
+            case ACTIVIDAD_ONE_REG:
+                if (null == selection) selection = "";
+                selection += Contrato.Actividad._ID + " = "
+                        + uri.getLastPathSegment();
+                qb.setTables(ACTIVIDAD_TABLE_NAME);
+                break;
+            case ACTIVIDAD_ALL_REGS:
+                if (TextUtils.isEmpty(sortOrder)) sortOrder =
+                        Contrato.Actividad._ID + " ASC";
+                qb.setTables(ACTIVIDAD_TABLE_NAME);
                 break;
         }
 
@@ -240,6 +385,24 @@ public class ProveedorDeContenido extends ContentProvider {
                 break;
             case EJERCICIO_ALL_REGS:
                 table = EJERCICIO_TABLE_NAME;
+                break;
+            case MUSCULO_ONE_REG:
+                if (null == selection) selection = "";
+                selection += Contrato.Musculo._ID + " = "
+                        + uri.getLastPathSegment();
+                table = MUSCULO_TABLE_NAME;
+                break;
+            case MUSCULO_ALL_REGS:
+                table = MUSCULO_TABLE_NAME;
+                break;
+            case ACTIVIDAD_ONE_REG:
+                if (null == selection) selection = "";
+                selection += Contrato.Actividad._ID + " = "
+                        + uri.getLastPathSegment();
+                table = ACTIVIDAD_TABLE_NAME;
+                break;
+            case ACTIVIDAD_ALL_REGS:
+                table = ACTIVIDAD_TABLE_NAME;
                 break;
         }
 
