@@ -51,4 +51,14 @@
         android:backgroundTint="@color/colorWhite"
         android:textColor="@color/colorBlack"
         android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/buttonIrAActividades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ir a la tabla Actividades"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/colorWhite"
+        android:textColor="@color/colorBlack"
+        android:textAlignment="center"/>
 </LinearLayout>

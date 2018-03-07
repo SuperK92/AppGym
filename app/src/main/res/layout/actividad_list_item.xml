@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- android:background="@drawable/list_selector" -->
+<LinearLayout android:id="@+id/LLCiclo"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_actividad_list_item_ejercicio"
+                android:layout_marginBottom="@dimen/appbar_padding_top"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp"
+                android:text="Ejercicio"/>
+
+            <TextView
+                android:id="@+id/textview_actividad_list_item_series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textview_actividad_list_item_repeticiones"
+                android:layout_alignBottom="@+id/textview_actividad_list_item_repeticiones"
+                android:layout_marginLeft="38dp"
+                android:layout_marginStart="38dp"
+                android:layout_toEndOf="@+id/textview_actividad_list_item_ejercicio"
+                android:layout_toRightOf="@+id/textview_actividad_list_item_ejercicio"
+                android:text="series"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textview_actividad_list_item_repeticiones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_toEndOf="@+id/textview_actividad_list_item_series"
+                android:layout_toRightOf="@+id/textview_actividad_list_item_series"
+                android:text="repeticiones"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

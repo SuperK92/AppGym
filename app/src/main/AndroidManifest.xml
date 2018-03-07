@@ -141,6 +141,40 @@
                 android:value=".musculo.MusculoActivity" />
         </activity>
 
+        <activity
+            android:name=".actividad.ActividadActivity"
+            android:label="Actividades"
+            android:parentActivityName=".PrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kelly.appgym.PrincipalActivity" />
+        </activity>
+
+        <activity
+            android:name=".actividad.ActividadInsercionActivity"
+            android:parentActivityName=".actividad.ActividadActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".actividad.ActividadActivity" />
+        </activity>
+
+        <activity
+            android:name=".actividad.ActividadActualizacionActivity"
+            android:parentActivityName=".actividad.ActividadActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".actividad.ActividadActivity" />
+        </activity>
+
         <provider
             android:name=".proveedor.ProveedorDeContenido"
             android:authorities="com.example.kelly.appgym.proveedor.ProveedorDeContenido"

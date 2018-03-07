@@ -1,4 +1,4 @@
-package com.example.kelly.appgym.ejercicio;
+package com.example.kelly.appgym.actividad;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,23 +18,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.example.kelly.appgym.R;
 import com.example.kelly.appgym.constantes.G;
-import com.example.kelly.appgym.constantes.Utilidades;
+import com.example.kelly.appgym.musculo.MusculoActualizacionActivity;
+import com.example.kelly.appgym.musculo.MusculoInsercionActivity;
+import com.example.kelly.appgym.pojos.Actividad;
 import com.example.kelly.appgym.pojos.Ejercicio;
 import com.example.kelly.appgym.pojos.Musculo;
-import com.example.kelly.appgym.proveedor.EjercicioProveedor;
+import com.example.kelly.appgym.proveedor.ActividadProveedor;
 import com.example.kelly.appgym.proveedor.Contrato;
+import com.example.kelly.appgym.proveedor.EjercicioProveedor;
 import com.example.kelly.appgym.proveedor.MusculoProveedor;
 
-import java.io.FileNotFoundException;
 
-
-public class CicloListFragment extends ListFragment
+public class ActividadListFragment extends ListFragment
 		implements LoaderManager.LoaderCallbacks<Cursor> {
 
 
@@ -44,8 +43,8 @@ public class CicloListFragment extends ListFragment
 	ActionMode mActionMode;
 	View viewSeleccionado;
 
-	public static CicloListFragment newInstance() {
-		CicloListFragment f = new CicloListFragment();
+	public static ActividadListFragment newInstance() {
+		ActividadListFragment f = new ActividadListFragment();
 
 		return f;
 	}
@@ -73,7 +72,7 @@ public class CicloListFragment extends ListFragment
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 			case G.INSERTAR:
-				Intent intent = new Intent(getActivity(), CicloInsercionActivity.class);
+				Intent intent = new Intent(getActivity(), ActividadInsercionActivity.class);
 				startActivity(intent);
 				break;
 		}
@@ -89,7 +88,7 @@ public class CicloListFragment extends ListFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 		//Log.i(LOGTAG, "onCreateView");
-		View v = inflater.inflate(R.layout.fragment_ciclo_list, container, false);
+		View v = inflater.inflate(R.layout.fragment_actividad_list, container, false);
 
 		mAdapter = new CicloCursorAdapter(getActivity());
 		setListAdapter(mAdapter);
@@ -138,18 +137,20 @@ public class CicloListFragment extends ListFragment
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 			switch(item.getItemId()){
 				case R.id.menu_contextual_borrar:
-					int cicloId = (Integer) viewSeleccionado.getTag();
-					EjercicioProveedor.delete(getActivity().getContentResolver(), cicloId);
+					int actividadId = (Integer) viewSeleccionado.getTag();
+					ActividadProveedor.delete(getActivity().getContentResolver(), actividadId);
 					break;
 				case R.id.menu_contextual_editar:
-					Intent intent = new Intent(getActivity(), CicloActualizacionActivity.class);
-					cicloId = (Integer) viewSeleccionado.getTag();
+					Intent intent = new Intent(getActivity(), ActividadActualizacionActivity.class);
+					actividadId = (Integer) viewSeleccionado.getTag();
 //					Log.i("El identificador 1", "kk"+cicloId);
-					Ejercicio ciclo = EjercicioProveedor.read(getActivity().getContentResolver(), cicloId);
+					Actividad actividad = ActividadProveedor.read(getActivity().getContentResolver(), actividadId);
 //					Log.i("El identificador", ciclo.getNombre());
-					intent.putExtra("ID", ciclo.getID());
-					intent.putExtra("Nombre", ciclo.getNombre());
-					intent.putExtra("Id_Musculo", ciclo.getMusculo().getID());
+					intent.putExtra("ID", actividad.getID());
+					intent.putExtra("Id_Ejercicio", actividad.getEjercicio().getID());
+					intent.putExtra("Series", actividad.getSeries());
+					intent.putExtra("Repeticiones", actividad.getRepeticiones());
+
 					startActivity(intent);
 					break;
 				default:
@@ -170,12 +171,13 @@ public class CicloListFragment extends ListFragment
 		// sample only has one Loader, so we don't care about the ID.
 		// First, pick the base URI to use depending on whether we are
 		// currently filtering.
-		String columns[] = new String[] { Contrato.Ejercicio._ID,
-										  Contrato.Ejercicio.NOMBRE,
-				                          Contrato.Ejercicio.ID_MUSCULO
+		String columns[] = new String[] { Contrato.Actividad._ID,
+										  Contrato.Actividad.ID_EJERCICIO,
+										  Contrato.Actividad.SERIES,
+										  Contrato.Actividad.REPETICIONES
 										};
 
-		Uri baseUri = Contrato.Ejercicio.CONTENT_URI;
+		Uri baseUri = Contrato.Actividad.CONTENT_URI;
 
 		// Now create and return a CursorLoader that will take care of
 		// creating a Cursor for the data being displayed.
@@ -190,7 +192,7 @@ public class CicloListFragment extends ListFragment
 		// Swap the new cursor in.  (The framework will take care of closing the
 		// old cursor once we return.)
 
-		Uri laUriBase = Uri.parse("content://"+Contrato.AUTHORITY+"/Ejercicio");
+		Uri laUriBase = Uri.parse("content://"+Contrato.AUTHORITY+"/Actividad");
 		data.setNotificationUri(getActivity().getContentResolver(), laUriBase);
 
 		mAdapter.swapCursor(data);
@@ -211,27 +213,22 @@ public class CicloListFragment extends ListFragment
 
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
-			int ID = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio._ID));
-			String nombre = cursor.getString(cursor.getColumnIndex(Contrato.Ejercicio.NOMBRE));
-			int idMusculo = cursor.getInt(cursor.getColumnIndex(Contrato.Ejercicio.ID_MUSCULO));
-			//String abreviatura = cursor.getString(cursor.getColumnIndex(Contrato.Musculo.NOMBRE));
+			int ID = cursor.getInt(cursor.getColumnIndex(Contrato.Actividad._ID));
+			int idEjercicio = cursor.getInt(cursor.getColumnIndex(Contrato.Actividad.ID_EJERCICIO));
 
-      		Musculo musculo = MusculoProveedor.read(getContext().getContentResolver(), idMusculo);
+			Ejercicio ejercicio = EjercicioProveedor.read(getContext().getContentResolver(), idEjercicio);
+			int series = cursor.getInt(cursor.getColumnIndex(Contrato.Actividad.SERIES));
+			int repeticiones = cursor.getInt(cursor.getColumnIndex(Contrato.Actividad.REPETICIONES));
 
-			TextView textviewNombre = (TextView) view.findViewById(R.id.textview_ciclo_list_item_nombre);
-			textviewNombre.setText(nombre);
 
-			TextView textviewAbreviatura = (TextView) view.findViewById(R.id.textview_ciclo_list_item_abreviatura);
-			textviewAbreviatura.setText(musculo.getNombre());
-			//textviewAbreviatura.setText(abreviatura);
+			TextView textviewEjercicio = (TextView) view.findViewById(R.id.textview_actividad_list_item_ejercicio);
+			textviewEjercicio.setText(ejercicio.getNombre());
 
-			ImageView image = (ImageView) view.findViewById(R.id.image_ciclo_list_item_foto);
+			TextView textviewSeries = (TextView) view.findViewById(R.id.textview_actividad_list_item_series);
+			textviewSeries.setText(String.valueOf(series));
 
-			try {
-				Utilidades.loadImageFromStorage(getActivity(), "img_" + ID + ".jpg", image);
-			} catch (FileNotFoundException e) {
-				image.setBackgroundResource(R.drawable.fondo);
-			}
+			TextView textviewRepeticiones = (TextView) view.findViewById(R.id.textview_actividad_list_item_repeticiones);
+			textviewRepeticiones.setText(String.valueOf(repeticiones));
 
 			view.setTag(ID);
 
@@ -241,7 +238,7 @@ public class CicloListFragment extends ListFragment
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
 			LayoutInflater inflater = LayoutInflater.from(context);
-			View v = inflater.inflate(R.layout.ciclo_list_item, parent, false);
+			View v = inflater.inflate(R.layout.actividad_list_item, parent, false);
 			bindView(v, context, cursor);
 			return v;
 		}

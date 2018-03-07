@@ -41,4 +41,8 @@
 
     <string name="ciclo_nombre">Nombre</string>
     <string name="ciclo_abreviatura">Musculo</string>
+
+    <string name="actividad_ejercicio">Ejercicio</string>
+    <string name="actividad_series">Series</string>
+    <string name="actividad_repeticiones">Repeticiones</string>
 </resources>

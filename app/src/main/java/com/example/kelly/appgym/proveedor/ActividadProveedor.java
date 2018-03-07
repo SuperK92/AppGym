@@ -51,6 +51,7 @@ public class ActividadProveedor {
         Uri uri = Uri.parse(Contrato.Actividad.CONTENT_URI + "/" + actividadId);
 
         String[] projection = {Contrato.Actividad._ID,
+                Contrato.Actividad.ID_EJERCICIO,
                 Contrato.Actividad.SERIES,
                 Contrato.Actividad.REPETICIONES};
 

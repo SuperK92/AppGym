@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kelly.appgym.actividad.ActividadActivity;
 import com.example.kelly.appgym.ejercicio.CicloActivity;
 import com.example.kelly.appgym.musculo.MusculoActivity;
 
@@ -55,6 +56,15 @@ public class PrincipalActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(contexto, CicloActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonIrAActividades = (Button) findViewById(R.id.buttonIrAActividades);
+        buttonIrAActividades.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(contexto, ActividadActivity.class);
                 startActivity(intent);
             }
         });

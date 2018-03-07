@@ -26,11 +26,13 @@ public class ProveedorDeContenido extends ContentProvider {
 
     private static final int ACTIVIDAD_ONE_REG = 100;
     private static final int ACTIVIDAD_ALL_REGS = 200;
+    private static final int ACTIVIDAD_EJERCICIO_REG = 300;
+
 
     private SQLiteDatabase sqlDB;
     public DatabaseHelper dbHelper;
     private static final String DATABASE_NAME = "Gym.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 13;
 
     private static final String MUSCULO_TABLE_NAME = "Musculo";
     private static final String EJERCICIO_TABLE_NAME = "Ejercicio";
@@ -95,6 +97,10 @@ public class ProveedorDeContenido extends ContentProvider {
                 Contrato.AUTHORITY,
                 ACTIVIDAD_TABLE_NAME + "/#",
                 ACTIVIDAD_ONE_REG);
+        sUriMatcher.addURI(
+                Contrato.AUTHORITY,
+                ACTIVIDAD_TABLE_NAME + "/EJERCICIO",
+                ACTIVIDAD_EJERCICIO_REG);
 
         // Specifies a custom MIME type for the picture URL table
 
@@ -128,6 +134,10 @@ public class ProveedorDeContenido extends ContentProvider {
                 ACTIVIDAD_ONE_REG,
                 "vnd.android.cursor.item/vnd."+
                         Contrato.AUTHORITY + "." + ACTIVIDAD_TABLE_NAME);
+        sMimeTypes.put(
+                ACTIVIDAD_EJERCICIO_REG,
+                "vnd.android.cursor.dir/vnd."+
+                        Contrato.AUTHORITY + "." + ACTIVIDAD_TABLE_NAME + "." + EJERCICIO_TABLE_NAME );
     }
 
     public static class DatabaseHelper extends SQLiteOpenHelper {
@@ -142,7 +152,7 @@ public class ProveedorDeContenido extends ContentProvider {
 
             if (!db.isReadOnly()){
             //Habilitamos la integridad referencial
-            db.execSQL("PRAGMA foreign_keys=ON;");
+            db.execSQL("PRAGMA foreign_keys = ON;");
             }
         }
 
@@ -194,6 +204,8 @@ public class ProveedorDeContenido extends ContentProvider {
 
             db.execSQL("INSERT INTO " + ACTIVIDAD_TABLE_NAME + " (" +  Contrato.Actividad._ID + "," + Contrato.Actividad.ID_EJERCICIO + "," + Contrato.Actividad.SERIES + ","
                     + Contrato.Actividad.REPETICIONES + ") " + "VALUES (1,1,3,15)");
+            db.execSQL("INSERT INTO " + ACTIVIDAD_TABLE_NAME + " (" +  Contrato.Actividad._ID + "," + Contrato.Actividad.ID_EJERCICIO + "," + Contrato.Actividad.SERIES + ","
+                    + Contrato.Actividad.REPETICIONES + ") " + "VALUES (2,2,4,12)");
 
             /*db.execSQL("INSERT INTO " + EJERCICIO_TABLE_NAME + " (" +  Contrato.Ejercicio._ID + "," + Contrato.Ejercicio.NOMBRE + "," + Contrato.Ejercicio.REPETICIONES + ") " +
                     "VALUES (1,'Sentadillas', 15)");
@@ -372,6 +384,19 @@ public class ProveedorDeContenido extends ContentProvider {
                         Contrato.Actividad._ID + " ASC";
                 qb.setTables(ACTIVIDAD_TABLE_NAME);
                 break;
+            case ACTIVIDAD_EJERCICIO_REG:
+                String sql1 = "SELECT " +
+                        Contrato.Actividad._ID + "," +
+                        Contrato.Ejercicio.NOMBRE + " AS NOMBRE_EJERCICIO," +
+                        Contrato.Actividad.SERIES + "," +
+                        Contrato.Actividad.REPETICIONES + " FROM " +
+                        ACTIVIDAD_TABLE_NAME +
+                        " INNER JOIN " + EJERCICIO_TABLE_NAME +
+                        " ON " + Contrato.Actividad.ID_EJERCICIO + " = " + Contrato.Ejercicio._ID;
+                Cursor c1;
+                c1 = db.rawQuery(sql1, null);
+                return c1;
+
         }
 
         Cursor c;
