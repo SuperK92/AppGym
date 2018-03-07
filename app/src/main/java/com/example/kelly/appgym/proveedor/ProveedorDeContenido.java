@@ -32,7 +32,7 @@ public class ProveedorDeContenido extends ContentProvider {
     private SQLiteDatabase sqlDB;
     public DatabaseHelper dbHelper;
     private static final String DATABASE_NAME = "Gym.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     private static final String MUSCULO_TABLE_NAME = "Musculo";
     private static final String EJERCICIO_TABLE_NAME = "Ejercicio";
@@ -172,7 +172,7 @@ public class ProveedorDeContenido extends ContentProvider {
                             + Contrato.Ejercicio.NOMBRE + " TEXT , "
                             + Contrato.Ejercicio.ID_MUSCULO + " INTEGER , "
                             + "FOREIGN KEY (" + Contrato.Ejercicio.ID_MUSCULO + ") "
-                            + "REFERENCES " + MUSCULO_TABLE_NAME + " (" + Contrato.Musculo._ID + "));"
+                            + "REFERENCES " + MUSCULO_TABLE_NAME + " (" + Contrato.Musculo._ID + ") ON DELETE CASCADE);"
             );
 
             db.execSQL("Create table "
@@ -182,7 +182,7 @@ public class ProveedorDeContenido extends ContentProvider {
                     + Contrato.Actividad.SERIES + " INTEGER , "
                     + Contrato.Actividad.REPETICIONES + " INTEGER , "
                     + "FOREIGN KEY (" + Contrato.Actividad.ID_EJERCICIO + ") "
-                    + "REFERENCES " + EJERCICIO_TABLE_NAME + " (" + Contrato.Ejercicio._ID + "));"
+                    + "REFERENCES " + EJERCICIO_TABLE_NAME + " (" + Contrato.Ejercicio._ID + ") ON DELETE CASCADE);"
             );
 
             inicializarDatos(db);
