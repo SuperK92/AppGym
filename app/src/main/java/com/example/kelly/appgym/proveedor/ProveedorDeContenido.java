@@ -170,7 +170,9 @@ public class ProveedorDeContenido extends ContentProvider {
                     + "( _id INTEGER PRIMARY KEY ON CONFLICT ROLLBACK AUTOINCREMENT, "
                     + Contrato.Actividad.ID_EJERCICIO + " INTEGER , "
                     + Contrato.Actividad.SERIES + " INTEGER , "
-                    + Contrato.Actividad.REPETICIONES + " INTEGER ); "
+                    + Contrato.Actividad.REPETICIONES + " INTEGER , "
+                    + "FOREIGN KEY (" + Contrato.Actividad.ID_EJERCICIO + ") "
+                    + "REFERENCES " + EJERCICIO_TABLE_NAME + " (" + Contrato.Ejercicio._ID + "));"
             );
 
             inicializarDatos(db);

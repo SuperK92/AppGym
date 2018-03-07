@@ -10,20 +10,23 @@ import com.example.kelly.appgym.constantes.G;
 
 public class Actividad {
     private int ID;
-    private int id_ejercicio;
+    //private int id_ejercicio;
+    private Ejercicio ejercicio;
     private int series;
     private int repeticiones;
 
     public Actividad(){
         this.ID = G.SIN_VALOR_INT;
-        this.id_ejercicio = G.SIN_VALOR_INT;
+        //this.id_ejercicio = G.SIN_VALOR_INT;
+        this.ejercicio = null;
         this.series = G.SIN_VALOR_INT;
         this.repeticiones = G.SIN_VALOR_INT;
     };
 
-    public Actividad(int ID, int id_ejercicio, int series, int repeticiones) {
+    public Actividad(int ID, Ejercicio ejercicio, int series, int repeticiones) {
         this.ID = ID;
-        this.id_ejercicio = id_ejercicio;
+        //this.id_ejercicio = id_ejercicio;
+        this.ejercicio = ejercicio;
         this.series = series;
         this.repeticiones = repeticiones;
     }
@@ -36,12 +39,12 @@ public class Actividad {
         this.ID = ID;
     }
 
-    public int getEjercicio() {
-        return id_ejercicio;
+    public Ejercicio getEjercicio() {
+        return ejercicio;
     }
 
-    public void setEjercicio(int ejercicio) {
-        this.id_ejercicio = ejercicio;
+    public void setEjercicio(Ejercicio ejercicio) {
+        this.ejercicio = ejercicio;
     }
 
     public int getSeries() {
