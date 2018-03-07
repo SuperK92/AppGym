@@ -107,6 +107,40 @@
                 android:value=".ejercicio.CicloActivity" />
         </activity>
 
+        <activity
+            android:name=".musculo.MusculoActivity"
+            android:label="Musculos"
+            android:parentActivityName=".PrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kelly.appgym.PrincipalActivity" />
+        </activity>
+
+        <activity
+            android:name=".musculo.MusculoInsercionActivity"
+            android:parentActivityName=".musculo.MusculoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".musculo.MusculoActivity" />
+        </activity>
+
+        <activity
+            android:name=".musculo.MusculoActualizacionActivity"
+            android:parentActivityName=".musculo.MusculoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".musculo.MusculoActivity" />
+        </activity>
+
         <provider
             android:name=".proveedor.ProveedorDeContenido"
             android:authorities="com.example.kelly.appgym.proveedor.ProveedorDeContenido"

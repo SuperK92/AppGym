@@ -140,7 +140,7 @@ public class CicloInsercionActivity extends AppCompatActivity {
         }
 
         Integer nRep = Integer.parseInt(editTextCicloAbreviatura.getText().toString());
-      Musculo musculo = MusculoProveedor.read(getContentResolver(), nRep);
+        Musculo musculo = MusculoProveedor.read(getContentResolver(), nRep);
         Ejercicio ejercicio = new Ejercicio(G.SIN_VALOR_INT, nombre, musculo, foto);
         EjercicioProveedor.insert(getContentResolver(), ejercicio, this);
         finish();

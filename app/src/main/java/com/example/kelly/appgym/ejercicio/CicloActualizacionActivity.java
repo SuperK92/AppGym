@@ -52,7 +52,8 @@ public class CicloActualizacionActivity extends AppCompatActivity {
 
 
         ejercicioId = this.getIntent().getExtras().getInt("ID");
-        int rep = this.getIntent().getExtras().getInt("Repeticiones");
+        int rep = this.getIntent().getExtras().getInt("Id_Musculo");
+
         editTextCicloNombre.setText(this.getIntent().getExtras().getString("Nombre"));
         editTextCicloAbreviatura.setText(String.valueOf(rep));
 
@@ -157,11 +158,7 @@ public class CicloActualizacionActivity extends AppCompatActivity {
             editTextCicloAbreviatura.requestFocus();
             return;
         }
-//        else if (nRep < 1) {
-//            editTextCicloAbreviatura.setError("El número debe ser mayor de 0");
-//            editTextCicloAbreviatura.requestFocus();
-//            return;
-//        }
+//
         Integer nRep = Integer.parseInt(editTextCicloAbreviatura.getText().toString());
         Musculo musculo = MusculoProveedor.read(getContentResolver(), nRep);
         Ejercicio ejercicio = new Ejercicio(ejercicioId, nombre, musculo, foto);

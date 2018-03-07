@@ -14,7 +14,7 @@ import java.io.IOException;
 
 
 public class MusculoProveedor {
-    static public void insert(ContentResolver resolvedor, com.example.kelly.appgym.pojos.Musculo musculo, Context contexto){
+    static public void insert(ContentResolver resolvedor, Musculo musculo, Context contexto){
         Uri uri = Contrato.Musculo.CONTENT_URI;
 
         ContentValues values = new ContentValues();
@@ -30,7 +30,7 @@ public class MusculoProveedor {
         resolver.delete(uri, null, null);
     }
 
-    static public void update(ContentResolver resolver, com.example.kelly.appgym.pojos.Musculo musculo, Context contexto){
+    static public void update(ContentResolver resolver, Musculo musculo, Context contexto){
         Uri uri = Uri.parse(Contrato.Musculo.CONTENT_URI + "/" + musculo.getID());
 
         ContentValues values = new ContentValues();

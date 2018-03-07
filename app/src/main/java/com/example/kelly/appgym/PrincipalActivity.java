@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kelly.appgym.ejercicio.CicloActivity;
+import com.example.kelly.appgym.musculo.MusculoActivity;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +40,15 @@ public class PrincipalActivity extends AppCompatActivity
         Intent intent = this.getIntent();
 
         usuario = intent.getParcelableExtra("usuario");
+
+        Button buttonIrAMusculos = (Button) findViewById(R.id.buttonIrAMusculos);
+        buttonIrAMusculos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(contexto, MusculoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Button buttonIrAEjercicios = (Button) findViewById(R.id.buttonIrAEjercicios);
         buttonIrAEjercicios.setOnClickListener(new View.OnClickListener() {
