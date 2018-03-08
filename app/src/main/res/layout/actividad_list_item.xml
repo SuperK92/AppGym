@@ -30,13 +30,23 @@
                 android:text="Ejercicio"/>
 
             <TextView
+                android:id="@+id/textview_actividad_list_item_musculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="Musculo"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
+
+            <TextView
                 android:id="@+id/textview_actividad_list_item_series"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textview_actividad_list_item_repeticiones"
-                android:layout_alignBottom="@+id/textview_actividad_list_item_repeticiones"
-                android:layout_marginLeft="38dp"
-                android:layout_marginStart="38dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
                 android:layout_toEndOf="@+id/textview_actividad_list_item_ejercicio"
                 android:layout_toRightOf="@+id/textview_actividad_list_item_ejercicio"
                 android:text="series"
@@ -48,11 +58,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="26dp"
-                android:layout_marginStart="26dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/textview_actividad_list_item_series"
                 android:layout_toRightOf="@+id/textview_actividad_list_item_series"
-                android:text="repeticiones"
+                android:text="rep"
                 android:textColor="@color/colorBlack"
                 android:textSize="20dp" />
 

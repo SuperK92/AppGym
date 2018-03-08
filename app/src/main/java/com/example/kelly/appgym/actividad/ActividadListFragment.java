@@ -32,6 +32,8 @@ import com.example.kelly.appgym.proveedor.Contrato;
 import com.example.kelly.appgym.proveedor.EjercicioProveedor;
 import com.example.kelly.appgym.proveedor.MusculoProveedor;
 
+import org.w3c.dom.Text;
+
 
 public class ActividadListFragment extends ListFragment
 		implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -223,6 +225,9 @@ public class ActividadListFragment extends ListFragment
 
 			TextView textviewEjercicio = (TextView) view.findViewById(R.id.textview_actividad_list_item_ejercicio);
 			textviewEjercicio.setText(ejercicio.getNombre());
+
+			TextView textviewMusculo = (TextView) view.findViewById(R.id.textview_actividad_list_item_musculo);
+			textviewMusculo.setText(ejercicio.getMusculo().getNombre());
 
 			TextView textviewSeries = (TextView) view.findViewById(R.id.textview_actividad_list_item_series);
 			textviewSeries.setText(String.valueOf(series));

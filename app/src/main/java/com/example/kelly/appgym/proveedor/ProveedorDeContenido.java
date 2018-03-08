@@ -32,7 +32,7 @@ public class ProveedorDeContenido extends ContentProvider {
     private SQLiteDatabase sqlDB;
     public DatabaseHelper dbHelper;
     private static final String DATABASE_NAME = "Gym.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 16;
 
     private static final String MUSCULO_TABLE_NAME = "Musculo";
     private static final String EJERCICIO_TABLE_NAME = "Ejercicio";
